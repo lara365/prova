@@ -1,11 +1,55 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reservas de Restaurante</title>
+  <link rel="stylesheet" href="../css/reserva.css" />
 </head>
 <body>
-    
+  <div class="container">
+    <!-- Reservas -->
+    <div class="card search-section">
+      <h2>Reservas de restaurantes</h2>
+      <input type="text" placeholder="Localização" />
+      <input type="text" placeholder="Data" />
+      <input type="text" placeholder="Tempo" />
+      <select>
+        <option>Cozinha</option>
+      </select>
+      <button>Procurar</button>
+
+      <div class="restaurant-card">
+        <img src="https://via.placeholder.com/100x100.png?text=Foto" alt="Bistro Café" />
+        <div class="restaurant-info">
+          <strong>Bistro Café</strong><br/>
+          <span class="stars">★★★★★ (120)</span><br/>
+          <small>Italiano</small><br/>
+          <button style="margin-top: 5px;">Fotos do cardápio</button><br/>
+          <span class="rating">4.5</span>
+          <button style="float: right;">Reserva</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel de Administração -->
+    <div class="admin-panel">
+      <h2>Painel de administração</h2>
+      <div class="admin-section">
+        <h3>Reservas</h3>
+        <div class="reserva-linha">30 de abril <span>18:00 2 <button>Editar</button></span></div>
+        <div class="reserva-linha">Disponibilidade <span>30 abril, 19h00</span></div>
+        <div class="reserva-linha">1 de maio 12:00 PM <span>2 <button>Editar</button></span></div>
+        <button class="cancelar">Cancelar</button>
+      </div>
+
+      <div class="admin-section">
+        <h3>Gerenciar reservas</h3>
+        <div class="reserva-linha">1º de maio <span>12:00 da tarde — 14h S Canal</span></div>
+        <div class="reserva-linha">1º de maio <span>18h — 14h S Canal</span></div>
+        <div class="reserva-linha">1º de maio <span>19h — S Canal</span></div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
