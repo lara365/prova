@@ -1,61 +1,115 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Reservas de Restaurante</title>
-  <link rel="stylesheet" href="../css/reserva.css" />
+  <title>Busca de Restaurantes</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    label { display: block; margin-top: 10px; }
+    input, select, button { margin-top: 5px; padding: 5px; }
+    .resultado { border: 1px solid #ccc; padding: 10px; margin-top: 10px; border-radius: 6px; }
+    .btn-success { background-color: #4CAF50; color: white; border: none; padding: 6px 12px; cursor: pointer; border-radius: 4px; }
+    .btn-success:hover { background-color: #45a049; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <!-- Reservas -->
-    <div class="card search-section">
-      <h2>Reservas de restaurantes</h2>
-      <input type="text" placeholder="Localização" />
-      <input type="text" placeholder="Data" />
-      <input type="text" placeholder="Tempo" />
-      <select>
-        <option>Cozinha</option>
-        <option>Italiana</option>
-        <option>Mexicana</option>
-        <option>Japonesa</option>
-      </select>
-      <button>Procurar</button>
+  <h1>Busca de Restaurantes</h1>
 
-      <!-- Restaurante exibido após a busca -->
-      <div class="restaurant-card" style="display: none;">
-        <img src="https://via.placeholder.com/100x100.png?text=Foto" alt="Bistro Café" />
-        <div class="restaurant-info">
-          <strong>Bistro Café</strong><br/>
-          <span class="stars">★★★★★ (120)</span><br/>
-          <small>Italiano</small><br/>
-          <button style="margin-top: 5px;">Fotos do cardápio</button><br/>
-          <span class="rating">4.5</span>
-          <button style="float: right;">Reserva</button>
-        </div>
-      </div>
-    </div>
+  <form id="formBusca">
+    <label for="localizacao">Localização:</label>
+    <input type="text" id="localizacao" placeholder="Ex: Centro" required />
 
-    <!-- Painel de Administração -->
-    <div class="admin-panel">
-      <h2>Painel de administração</h2>
-      <div class="admin-section">
-        <h3>Reservas</h3>
-        <div class="reserva-linha">30 de abril <span>18:00 2 <button>Editar</button></span></div>
-        <div class="reserva-linha">Disponibilidade <span>30 abril, 19h00</span></div>
-        <div class="reserva-linha">1 de maio 12:00 PM <span>2 <button>Editar</button></span></div>
-        <button class="cancelar">Cancelar</button>
-      </div>
+    <label for="data">Data:</label>
+    <input type="date" id="data" required />
 
-      <div class="admin-section">
-        <h3>Gerenciar reservas</h3>
-        <div class="reserva-linha">1º de maio <span>12:00 da tarde — 14h S Canal</span></div>
-        <div class="reserva-linha">1º de maio <span>18h — 14h S Canal</span></div>
-        <div class="reserva-linha">1º de maio <span>19h — S Canal</span></div>
-      </div>
-    </div>
-  </div>
+    <label for="hora">Hora:</label>
+    <input type="time" id="hora" required />
 
-  <script src="js/script.js"></script>
+    <label for="cozinha">Tipo de cozinha:</label>
+    <select id="cozinha" required>
+      <option value="">--Selecione--</option>
+      <option value="Brasileira">Brasileira</option>
+      <option value="Italiana">Italiana</option>
+      <option value="Japonesa">Japonesa</option>
+    </select>
+
+    <button type="submit" style="margin-top:15px;">Buscar Restaurante</button>
+  </form>
+
+  <div id="resultados"></div>
+
+  <script>
+    const restaurantes = [
+      { id: 1, nome: 'Sabor da Serra', localizacao: 'Centro', cozinha: 'Brasileira' },
+      { id: 2, nome: 'La Pasta', localizacao: 'Jardins', cozinha: 'Italiana' },
+      { id: 3, nome: 'Tokyo Sushi', localizacao: 'Centro', cozinha: 'Japonesa' }
+    ];
+
+    const disponibilidades = [
+      { restauranteId: 1, data: '2025-06-04', hora: '12:00', tipoMesa: 'Mesa para 2' },
+      { restauranteId: 1, data: '2025-06-04', hora: '19:00', tipoMesa: 'Mesa para 4' },
+      { restauranteId: 2, data: '2025-06-05', hora: '20:00', tipoMesa: 'Mesa para 2' },
+      { restauranteId: 3, data: '2025-06-04', hora: '18:30', tipoMesa: 'Mesa para 6' }
+    ];
+
+    const formBusca = document.getElementById('formBusca');
+    const resultadosDiv = document.getElementById('resultados');
+
+    formBusca.addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const localizacao = document.getElementById('localizacao').value.trim().toLowerCase();
+      const data = document.getElementById('data').value;
+      const hora = document.getElementById('hora').value;
+      const cozinha = document.getElementById('cozinha').value.trim().toLowerCase();
+
+      resultadosDiv.innerHTML = '';
+
+      if (!localizacao || !data || !hora || !cozinha) {
+        resultadosDiv.textContent = 'Por favor, preencha todos os campos para buscar.';
+        return;
+      }
+
+      const restaurantesFiltrados = restaurantes.filter(r =>
+        r.localizacao.toLowerCase().includes(localizacao) &&
+        r.cozinha.toLowerCase() === cozinha
+      );
+
+      if (restaurantesFiltrados.length === 0) {
+        resultadosDiv.textContent = 'Nenhum restaurante encontrado para os critérios informados.';
+        return;
+      }
+
+      const disponibilidadesFiltradas = disponibilidades.filter(d =>
+        d.data === data &&
+        d.hora === hora &&
+        restaurantesFiltrados.some(r => r.id === d.restauranteId)
+      );
+
+      if (disponibilidadesFiltradas.length === 0) {
+        resultadosDiv.textContent = 'Nenhuma disponibilidade encontrada para os critérios informados.';
+        return;
+      }
+
+      disponibilidadesFiltradas.forEach(d => {
+        const restaurante = restaurantes.find(r => r.id === d.restauranteId);
+
+        const card = document.createElement('div');
+        card.classList.add('resultado');
+
+        card.innerHTML = `
+          <h3>${restaurante.nome}</h3>
+          <p><strong>Localização:</strong> ${restaurante.localizacao}</p>
+          <p><strong>Tipo de cozinha:</strong> ${restaurante.cozinha}</p>
+          <p><strong>Data:</strong> ${d.data}</p>
+          <p><strong>Hora:</strong> ${d.hora}</p>
+          <p><strong>Tipo de mesa:</strong> ${d.tipoMesa}</p>
+          <button class="btn-success">Reservar esta mesa</button>
+        `;
+
+        resultadosDiv.appendChild(card);
+      });
+    });
+  </script>
 </body>
 </html>

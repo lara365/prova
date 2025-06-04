@@ -1,68 +1,113 @@
-[11:26, 21/05/2025] Marina Valezi: body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5dc;
-    padding: 20px;
-}
-
-h1 {
-    text-align: center;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f4f0;
     color: #333;
-}
-
-.container {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-.search-box, .painel {
-    width: 45%;
-    background-color: #e0f2e9;
-    padding: 20px;
-    border-radius: 10px;
-}
-
-input, select, button {
-    display: block;
-    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+  
+  /* Cabeçalho */
+  header {
+    background-color: #8B4513;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
+  
+  header h1 {
     margin-bottom: 10px;
-    padding: 10px;
-    font-size: 1em;
-}
-
-button {
-    background-color: #4CAF50;
+    font-size: 2.5rem;
+  }
+  
+  header p {
+    font-size: 1.2rem;
+  }
+  
+  /* Container principal */
+  .container {
+    max-width: 600px;
+    margin: 40px auto;
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    color: #5c3d2e;
+    margin-bottom: 25px;
+  }
+  
+  /* Estilo dos campos */
+  form label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #4d382d;
+  }
+  
+  form input,
+  form select,
+  form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s ease;
+  }
+  
+  form input:focus,
+  form select:focus,
+  form textarea:focus {
+    border-color: #8B4513;
+    outline: none;
+  }
+  
+  /* Botão */
+  form button {
+    margin-top: 25px;
+    width: 100%;
+    background-color: #8B4513;
     color: white;
     border: none;
+    padding: 14px;
+    font-size: 1rem;
+    border-radius: 6px;
     cursor: pointer;
-}
-
-#resultado {
+    transition: background-color 0.3s ease;
+  }
+  
+  form button:hover {
+    background-color: #a0522d;
+  }
+  
+  /* Mensagem de sucesso */
+  .success-message {
     margin-top: 20px;
-}
-[11:26, 21/05/2025] Marina Valezi: const restaurantes = [
-    {
-        nome: "Bistro Café",
-        estado: "São Paulo",
-        cozinha: "Italiana",
-        nota: 4.5
-    },
-    {
-        nome: "Sabores do Recife",
-        estado: "Pernambuco",
-        cozinha: "Brasileira",
-        nota: 4.2
-    },
-    {
-        nome: "Sushi da Vila",
-        estado: "São Paulo",
-        cozinha: "Japonesa",
-        nota: 4.8
-    },
-    {
-        nome: "Nordeste Sabor",
-        estado: "Pernambuco",
-        cozinha: "Brasileira",
-        nota: 4.3
+    color: green;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 600px) {
+    header h1 {
+      font-size: 2rem;
     }
-];
+  
+    .container {
+      padding: 20px;
+    }
+  }
+  

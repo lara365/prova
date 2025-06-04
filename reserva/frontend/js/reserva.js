@@ -1,85 +1,58 @@
-// Função para buscar restaurantes reais a partir da API do Google Places
-async function searchRestaurants() {
-  const searchInput = document.getElementById("search-input").value;
-  const searchSelect = document.getElementById("search-select").value;
-  const city = document.getElementById("city-select").value;  // Supondo que tenha um campo para cidade
+const restaurantes = [
+  { id: 1, nome: 'Sabor da Serra', localizacao: 'Centro', cozinha: 'Brasileira' },
+  { id: 2, nome: 'La Pasta', localizacao: 'Jardins', cozinha: 'Italiana' },
+  { id: 3, nome: 'Tokyo Sushi', localizacao: 'Centro', cozinha: 'Japonesa' }
+];
 
-  // Substitua pela sua chave de API do Google
-  const apiKey = 'YOUR_GOOGLE_API_KEY';
+const disponibilidades = [
+  { restauranteId: 1, data: '2025-06-04', hora: '12:00', tipoMesa: 'Mesa para 2' },
+  { restauranteId: 1, data: '2025-06-04', hora: '19:00', tipoMesa: 'Mesa para 4' },
+  { restauranteId: 2, data: '2025-06-05', hora: '20:00', tipoMesa: 'Mesa para 2' },
+  { restauranteId: 3, data: '2025-06-04', hora: '18:30', tipoMesa: 'Mesa para 6' }
+];
 
-  // Construindo a URL para a busca na API do Google Places
-  const url = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=restaurants+in+${city}+${searchInput}&type=restaurant&key=${apiKey}`;
+const formBusca = document.getElementById('formBusca');
+const resultadosDiv = document.getElementById('resultados');
 
-  try {
-    const response = await fetch(url);
-    const data = await response.json();
+formBusca.addEventListener('submit', function(event) {
+  event.preventDefault();
 
-    // Limpa a lista de restaurantes antes de exibir os resultados
-    const restaurantCards = document.querySelector(".restaurant-list");
-    restaurantCards.innerHTML = "";
+  const localizacao = document.getElementById('localizacao').value.trim().toLowerCase();
+  const data = document.getElementById('data').value;
+  const hora = document.getElementById('hora').value;
+  const cozinha = document.getElementById('cozinha').value.trim().toLowerCase();
 
-    // Exibe os restaurantes na página
-    if (data.results.length === 0) {
-      restaurantCards.innerHTML = "<p>Nenhum restaurante encontrado para sua busca.</p>";
-      return;
-    }
+  resultadosDiv.innerHTML = '';
 
-    data.results.forEach(restaurant => {
-      const card = document.createElement("div");
-      card.classList.add("restaurant-card");
-
-      card.innerHTML = `
-        <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&photoreference=${restaurant.photos ? restaurant.photos[0].photo_reference : ''}&key=${apiKey}" alt="${restaurant.name}">
-        <div class="restaurant-info">
-          <h3>${restaurant.name}</h3>
-          <div class="stars">⭐ ${restaurant.rating || 'N/A'}</div>
-          <div class="rating">Classificação: ${restaurant.rating || 'N/A'}</div>
-        </div>
-      `;
-
-      restaurantCards.appendChild(card);
-    });
-  } catch (error) {
-    console.error('Erro ao buscar dados da API:', error);
-    alert('Erro ao buscar restaurantes, tente novamente mais tarde!');
+  if (!localizacao || !data || !hora || !cozinha) {
+    resultadosDiv.textContent = 'Por favor, preencha todos os campos para buscar.';
+    return;
   }
-}
 
-// Função para adicionar uma nova reserva
-function addReservation() {
-  const nameInput = document.getElementById("reserva-name").value;
-  const dateInput = document.getElementById("reserva-date").value;
+  const restaurantesFiltrados = restaurantes.filter(r =>
+    r.localizacao.toLowerCase().includes(localizacao) &&
+    r.cozinha.toLowerCase() === cozinha
+  );
 
-  if (nameInput && dateInput) {
-    const reservaList = document.querySelector(".reserva-list");
-
-    const reserva = document.createElement("div");
-    reserva.classList.add("reserva-linha");
-
-    reserva.innerHTML = `
-      <span>${nameInput}</span>
-      <span>${dateInput}</span>
-      <button class="cancelar" onclick="cancelReservation(this)">Cancelar</button>
-    `;
-
-    reservaList.appendChild(reserva);
-
-    // Limpa os campos após adicionar
-    document.getElementById("reserva-name").value = "";
-    document.getElementById("reserva-date").value = "";
-  } else {
-    alert("Por favor, preencha todos os campos!");
+  if (restaurantesFiltrados.length === 0) {
+    resultadosDiv.textContent = 'Nenhum restaurante encontrado para os critérios informados.';
+    return;
   }
-}
 
-// Função para cancelar a reserva
-function cancelReservation(button) {
-  const reserva = button.parentElement;
-  reserva.remove();
-}
+  const disponibilidadesFiltradas = disponibilidades.filter(d =>
+    d.data === data &&
+    d.hora === hora &&
+    restaurantesFiltrados.some(r => r.id === d.restauranteId)
+  );
 
-// Evento de busca (ao clicar no botão de pesquisa)
-document.getElementById("search-button").addEventListener("click", searchRestaurants);
+  if (disponibilidadesFiltradas.length === 0) {
+    resultadosDiv.textContent = 'Nenhuma disponibilidade encontrada para os critérios informados.';
+    return;
+  }
 
-// Evento de adicionar reserva (ao clicar no botão de adicionar reserva)
-document.getElementById("add-reservation-button").addEventListener("click", addReservation);
+  disponibilidadesFiltradas.forEach(d => 
+    const restaurante = restaurantes.find(r => r.id === d.restauranteId);)
+
+    const card = document.createElement('div');
+    card.styl
+  }
