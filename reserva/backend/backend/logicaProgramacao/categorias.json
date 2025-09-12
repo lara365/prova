@@ -2,5 +2,13 @@
     {
         "id": 1,
         "nome": "not"
+    },
+    {
+        "nome_categoria": "hm",
+        "id_categoria": 1
+    },
+    {
+        "nome_categoria": "vre",
+        "id_categoria": 1
     }
 ]
