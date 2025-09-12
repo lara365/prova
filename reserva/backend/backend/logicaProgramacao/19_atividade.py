@@ -10,16 +10,16 @@ def carregar_arquivo(nome_arquivo):
     try:
         with open(nome_arquivo, 'r') as arquivo:
             dados = json.load(arquivo)
-            print(f"Arquivo {nome_arquivo} carregado!")
+            print("Arquivo carregado!")
             return dados
     except FileNotFoundError:
-        print(f"Arquivo {nome_arquivo} não encontrado. Criando novo arquivo.")
+        print("Arquivo não encontrado.")
         return []
 
 def salvar_arquivo(nome_arquivo, dados):
     with open(nome_arquivo, 'w') as arquivo:
         json.dump(dados, arquivo, indent=4)
-        print(f"Arquivo {nome_arquivo} salvo.")
+        print("Arquivo salvo.")
 
 def exibir_menu():
     print(".........loja eletronico.........")
