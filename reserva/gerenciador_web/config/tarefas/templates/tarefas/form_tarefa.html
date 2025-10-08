@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Nova Tarefa</title>
+</head>
+<body>
+    <h1>Adicionar Nova Tarefa</h1>
+    <form method="POST">
+        {% csrf_token %} <label for="titulo">Titulo</label><br>
+        <input type="text" id="titulo" name="titulo" required><br><br>
+
+        <label for="descricao">Descricao</label><br>
+        <textarea name="descricao" id="descricao" rows="4" cols="50"></textarea><br><br>
+
+        <button type="submit">Salvar tarefa</button>
+</form>
+<a href="{% url 'lista_tarefas' %}">Cancelar</a>  
+</body>
+</html>

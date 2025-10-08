@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 
 # Create your views here.
 
@@ -30,7 +30,7 @@ def listar_tarefas(request):
     # 3. renderizamos o tamplate, passando a requisição e o contexto com os dados.
     return render(request, 'tarefas/lista.html', contexto)
 
-def detalhe_tarefas (request, tarefa_id):
+def detalhe_tarefa (request, tarefa_id):
     #Busca uma tarefa pelo id
     #Se não encontrar retorna um erro 404
     tarefa= get_object_or_404 (Tarefa, pk=tarefa_id)
@@ -42,4 +42,17 @@ def detalhe_tarefas (request, tarefa_id):
 #3. renderizamos o template , passando a requesição e o contexto com os dados. 
     return render(request, 'tarefas/lista.html', contexto)
 
+def adicionar_tarefa(request):
+    if request.method == 'POST':
+        titulo = request.POST.get('titulo')
+        descricao = request.POST.get('descricao')
+        Tarefa.objects.create(titulo=titulo,descricao=descricao)
+        return redirect('lista_tarefas')
 
+    return render(request,'tarefas/form_tarefa.html')
+
+#me fodos http
+#POST: envia dados para o servidor
+#GET: busca dados no servidor 
+#PUT: atualizada recursos existentes
+#DELETES: remove recursos selecionados

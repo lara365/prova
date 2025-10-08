@@ -9,12 +9,15 @@
 <body>
 
     <h1>Gerenciador de tarefas web</h1>
+    
+    <a href = "{% url 'adicionar_tarefa' %}"><strong>+ Adicionar Tarefa </strong></a>
+    <hr >
+
 
     {% for tarefa in minhas_tarefas %}     
         <div class="tarefas {% if tarefa.concluida %}concluida{% endif %}">
-            <h2>{{ tarefa.titulo }}</h2>
+            <h2><a href="{% url 'detalhe_tarefa' tarefa.id %}">{{ tarefa.titulo }}</a></h2>
             <p>{{ tarefa.descricao }}</p>
-            <h2><a href="{% url 'detalhe_tarefa' tarefa.id %}"></a></h2>
             <small>Criada em: {{ tarefa.data_criacao }}</small>
         </div>
     {% empty %}
