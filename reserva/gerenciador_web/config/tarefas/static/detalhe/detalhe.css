@@ -49,3 +49,9 @@ a {
 a:hover {
     background-color: #2980b9;
 }
+
+
+.a-button{
+    color: #ffff;
+    background-color: #3498db;
+}

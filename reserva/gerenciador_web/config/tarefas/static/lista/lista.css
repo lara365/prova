@@ -1,14 +1,14 @@
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    color: #ca1ec1;
+    color: #8e0aa0;
     margin: 20px;
 }
 
 h1 {
-    color: #c868a0;
+    color: #cf47ea;
     text-align: center;
-    border-bottom: 2px solid #dc10bd;
+    border-bottom: 2px solid #dc10a2;
     padding-bottom: 10px;
 }
 
@@ -45,7 +45,7 @@ h1 {
 }
 
 a {
-    color: #e532f6;
+    color: #f632e6;
     text-decoration: none;
 }
 
