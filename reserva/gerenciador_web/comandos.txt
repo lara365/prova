@@ -1,4 +1,4 @@
-python -m django startproject config
+python -m django startproject projeto
 
 C:\Users\Aluno\AppData\Roaming\Python\Python313\Scripts\django-admin startproject backend
 
